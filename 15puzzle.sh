@@ -7,6 +7,10 @@ function init_matrix () {
 			matrix+=($value)
 		done
 	done
+	shuffle_matrix
+}
+
+function shuffle_matrix () {
 	for ((i=0;i<$num_cells;i++)) do
 		i_rand=$(( $RANDOM % 16 ))
 		value_i=${matrix[$i]}
