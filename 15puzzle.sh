@@ -7,6 +7,13 @@ function init_matrix () {
 			matrix+=($value)
 		done
 	done
+	for ((i=0;i<$num_cells;i++)) do
+		i_rand=$(( $RANDOM % 16 ))
+		value_i=${matrix[$i]}
+		value_i_rand=${matrix[$i_rand]}
+		matrix[$i]=$value_i_rand
+		matrix[$i_rand]=$value_i
+	done
 }
 
 function print_matrix () {
@@ -34,10 +41,11 @@ function print_matrix () {
 }
 
 declare -i step=1
+declare -i zero_i=0
 declare -a matrix
 num_rows=4
 num_columns=4
-nums_len=$((num_rows*num_columns))
+num_cells=$((num_rows*num_columns))
 init_matrix
 
 while :
@@ -47,6 +55,7 @@ do
 	read -p "Ваш ход (q - выход):" answer
 	if [[ "$answer" =~ ^[0-9]+$ ]]; then
 		if ((1<=answer && answer<=15)); then
+
 			echo "Ход - ${answer}"
 		else
 			echo "Неверный ход! Можно ввести число от 1 до 15."
