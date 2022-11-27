@@ -2,3 +2,6 @@
 test.sh
 test/**
 new/**
+new.sh
+
+.DS_Store
