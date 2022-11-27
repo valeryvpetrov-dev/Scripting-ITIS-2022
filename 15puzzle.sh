@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -i step=1
+declare -i step=0
 declare -i zero_line_i=0
 declare -a matrix
 num_rows=4
@@ -19,7 +19,7 @@ function init_matrix () {
 
 function shuffle_matrix () {
 	for ((i=0;i<$num_cells;i++)) do
-		i_rand=$(( $RANDOM % 16 ))
+		i_rand=$(( $RANDOM % num_cells ))
 		value_i=${matrix[$i]}
 		value_i_rand=${matrix[$i_rand]}
 		matrix[$i]=$value_i_rand
@@ -56,9 +56,24 @@ function print_matrix () {
 	echo "+-------------------+"
 }
 
+function check_win () {
+	for ((i=0;i<$(( num_cells - 1 ));i++)) do
+		if (( ${matrix[$i]} != $(( i + 1 )) )); then
+			break
+		fi
+	done
+	if (( i == $(( num_cells - 1 )) )); then
+		echo "Вы собрали головоломку за $step ходов."
+		print_matrix
+		exit 0
+	fi
+}
+
 init_matrix
 while :
 do
+	check_win
+	step+=1
 	echo "Ход № ${step}"
 	print_matrix
 	read -p "Ваш ход (q - выход):" answer
@@ -144,5 +159,4 @@ do
 			echo "Неверный ход! Можно ввести число от 1 до 15."
 		fi
 	fi
-	step+=1
 done
