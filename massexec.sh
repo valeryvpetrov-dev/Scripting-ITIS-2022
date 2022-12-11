@@ -23,6 +23,17 @@ while :; do
     shift; shift
 done
 
+# Set defaults if arg was not passed
+if [ -z "$path" ]; then
+	path=$(pwd)
+fi
+if [ -z "$mask" ]; then
+	mask="*"
+fi
+if [ -z "$number" ]; then
+	number=$(nproc)
+fi
+
 echo "path=$path"
 echo "mask=$mask"
 echo "number=$number"
