@@ -34,6 +34,20 @@ if [ -z "$number" ]; then
 	number=$(nproc)
 fi
 
+# Validate input args
+if [ ! -d "$path" ]; then
+	echo "Directory $path does not exist."
+	exit 2
+fi
+if (( ${#mask} <= 0 )); then
+	echo "Mask $path length must be positive."
+	exit 2
+fi
+if (( number <= 0 )); then
+	echo "Number $number must be positive."
+	exit 2
+fi
+
 echo "path=$path"
 echo "mask=$mask"
 echo "number=$number"
