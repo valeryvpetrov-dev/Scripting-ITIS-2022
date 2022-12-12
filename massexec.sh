@@ -48,9 +48,11 @@ if (( number <= 0 )); then
 	exit 2
 fi
 
-# Iterate over realted files
+# Iterate over realted files and run command in multiple processes
 for file in $(find $path -name $mask); do
-	eval "$command $file"
+	runningJobs=$(jobs | wc -l | xargs)
+	if (( runningJobs == number )); then
+		wait -n
+	fi
+	eval "$command $file &"
 done
-
-# TODO parallelize run to number processes
