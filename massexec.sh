@@ -48,7 +48,9 @@ if (( number <= 0 )); then
 	exit 2
 fi
 
-echo "path=$path"
-echo "mask=$mask"
-echo "number=$number"
-echo "command=$command"
+# Iterate over realted files
+for file in $(find $path -name $mask); do
+	eval "$command $file"
+done
+
+# TODO parallelize run to number processes

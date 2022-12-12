@@ -3,5 +3,6 @@ test.sh
 test/**
 new/**
 new.sh
+massexec/**
 
 .DS_Store
